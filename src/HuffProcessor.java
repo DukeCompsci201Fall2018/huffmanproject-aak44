@@ -78,18 +78,18 @@ public class HuffProcessor {
 	private String[] makeCodings(HuffNode root) {
 		// TODO Auto-generated method stub
 		String[] code=new String[ALPH_SIZE +1];
-		changer(root,"",code);
+		codingHelper(root,"",code);
 		return code;
 	}
 
-	private void changer(HuffNode root, String string, String[] code) {
+	private void codingHelper(HuffNode root, String string, String[] code) {
 		// TODO Auto-generated method stub
 		if(root.myLeft==null && root.myRight==null) {
 			code[root.myValue]=string;
 			return ;
 		}
-		changer(root.myRight,string+"1",code);
-		changer(root.myLeft,string+"0",code);
+		codingHelper(root.myRight,string+"1",code);
+		codingHelper(root.myLeft,string+"0",code);
 	}
 
 	private HuffNode makeTree(int[] counts) {
