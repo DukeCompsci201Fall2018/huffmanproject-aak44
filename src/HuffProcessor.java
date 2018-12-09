@@ -135,7 +135,6 @@ public class HuffProcessor {
 	 */
 	public void decompress(BitInputStream in, BitOutputStream out){
 		int val = in.readBits(BITS_PER_WORD);
-		if (val == -1) break;
 		if(val != HUFF_TREE || val==-1) {
 			throw new HuffException("Illegal header starts with" +val);
 		}
