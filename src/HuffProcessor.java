@@ -151,18 +151,20 @@ public class HuffProcessor {
 			if(val==-1) {
 				throw new HuffException("no PSEUDO_EOF");
 			}
-			if(val==0) {
-				curr=curr.myLeft;
-			}
 			else {
-				curr=curr.myRight;
-				if(curr.myLeft==null && curr.myRight==null) {
-					if(curr.myValue==PSEUDO_EOF) {
-						break;
-					}
-					else {
-						out.writeBits(BITS_PER_WORD, curr.myValue);
-						curr=root;
+				if(val==0) {
+					curr=curr.myLeft;
+				}
+				else {
+					curr=curr.myRight;
+					if(curr.myLeft==null && curr.myRight==null) {
+						if(curr.myValue==PSEUDO_EOF) {
+							break;
+						}
+						else {
+							out.writeBits(BITS_PER_WORD, curr.myValue);
+							curr=root;
+						}
 					}
 				}
 			}
@@ -180,7 +182,9 @@ public class HuffProcessor {
 			HuffNode right=readHeader(in);
 			return new HuffNode(0,0,left,right);
 		}
-		val=in.readBits(BITS_PER_WORD+1);
-		return new HuffNode(val,0,null,null);
+		else {
+			int newVal=in.readBits(BITS_PER_WORD+1);
+			return new HuffNode(newVal,0,null,null);
+		}
 	}
 }
